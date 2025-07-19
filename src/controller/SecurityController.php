@@ -49,10 +49,10 @@ class SecurityController extends AbstractController{
 
         if ($user){
           $this->session->set('user', $user->toArray());
-          //  var_dump($user);
-          // die;
-        
+
           header('Location: /client/home');
+          var_dump('ok');
+          die;
           exit();
 
         }else{

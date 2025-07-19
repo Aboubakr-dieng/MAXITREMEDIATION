@@ -11,7 +11,7 @@ class Compte extends AbstractEntity{
   private ?StatutCompte $StatutCompte = null;
   private array $transactions = [];
   private Utilisateur $Utilisateur;
-  public function __construct($id = 0,?DateTime $dateCreation=null,$solde=0,$numeroCompte ='',?StatutCompte $StatutCompte = null){
+  public function __construct($id = 0,?DateTime $dateCreation=null,$solde= 0,$numeroCompte ='',?StatutCompte $StatutCompte = null){
     $this->id = $id;
     $this->dateCreation = $dateCreation;
     $this->solde = $solde;
@@ -99,14 +99,14 @@ class Compte extends AbstractEntity{
 
     return $this;
   }
-    public function toObject(array $data):?object{
+    public static function toObject(array $data):?object{
     $compte = new Compte();
-    $compte->setId($data['id' ?? 0]);
-    $compte->setSolde($data['solde' ?? 0]);
-    $compte->setNumeroCompte($data['numerocompte' ?? '']);
-    $compte->setStatutCompte($data['StatutCompte'?? '']);
+    $compte->setId($data['id' ]?? 0);
+    $compte->setSolde($data['solde'] ?? 0);
+    $compte->setNumeroCompte($data['numerocompte' ]?? '');
+    $compte->setStatutCompte($data['StatutCompte']?? '');
     $utilisateur = new Utilisateur();
-    $utilisateur->getId($data['idutilisateur' ?? '']);
+    $utilisateur->getId($data['idutilisateur']?? 0);
     $compte->setUtilisateur($utilisateur);
 
     return $compte;

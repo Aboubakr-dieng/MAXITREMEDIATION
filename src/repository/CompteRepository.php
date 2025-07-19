@@ -3,47 +3,49 @@
 namespace App\Repository;
 
 use App\Core\Abstract\AbstractRepository;
+use App\Core\Database;
 use App\Entity\Compte;
 use App\Entity\Utilisateur;
+use PDO;
 
  class CompteRepository extends AbstractRepository{
 
-    private static ?CompteRepository $instance = null;
+    private static ?Database $instance = null;
 
     private function __construct()
     {
-        parent::__construct();
+        parent:: __construct();
+        $this->table = 'compte';
     }
+public static function getInstance(): self{
+        $pdo = Database::getInstance();
+        // var_dump($pdo);
+        // die;
 
-    public static function getInstance(){
-
-        if(self::$instance = null){
-            self::$instance = new CompteRepository();
-        }
-        return self::$instance;
-
-    }
+        return new self($pdo);
+}
 
     public function selectAll() {}
 
     public function insert():void{}
     public function update() {}
     public function delete() {}
-    public function selectById() {}
-    public function selectBy() {
 
+
+    public  function findByUser(Utilisateur $user) {
+        $query = 'select * from '.$this->table .'where idutilisateur = :idutilisateur';
+        $stmt= $this->pdo->prepare($query);
+        $stmt->execute([
+            'idutilisateur '=> $user->getId()
+        ]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+         var_dump($rows);
+        die;
+
+        return array_map(fn($compte)=>Compte::toObject($compte), $rows);
     }
-
-      public function findAll(array $filter) : array {
-        return [];
-    }
-
-    // public function findById(): ?Compte {
-
-    //     return null;
-    // }
    
-    public function findByTelephone(string $telephone):?Compte {}
+    // public function findByTelephone(string $telephone):?Compte {}
 
 
 

@@ -20,7 +20,7 @@ $transactions = [];
                         <div>
                             <div class="text-white font-bold text-lg">Total Balance</div>
                             <div class="text-white text-2xl font-bold">
-                                <?= number_format($Compte->$solde ?? 0, 2) ?> FCFA
+                                <?= number_format($solde ?? 0, 2) ?> FCFA
                             </div>
                         </div>
                     </div>
